@@ -1,6 +1,6 @@
-## Website Accessed
+## 2) Website Accessed
 
-The website accessed is the French Wikipedia (fr.wikipedia.org), which can be seen in the TLS Client Hello packet (packet 21980).
+The website that I accessed is the French Wikipedia (fr.wikipedia.org), which can be seen in the TLS Client Hello packet (packet 21980).
 
 <img width="212" height="70" alt="image" src="https://github.com/user-attachments/assets/a8f8a69b-1048-4292-9829-9b6d31c8912c" />
 
@@ -14,7 +14,7 @@ The website accessed is the French Wikipedia (fr.wikipedia.org), which can be se
 <img width="1430" height="428" alt="Screenshot 2026-09-22 at 13 52 32" src="https://github.com/user-attachments/assets/e449d789-df6f-473b-9371-aa3426d0d5e7" />
 
 
-## Your PC Details
+## PC Details
 
 * **IP Address:** 10.119.82.29
 
@@ -36,3 +36,36 @@ The three-way handshake is how a computer and a server establish a reliable conn
 * **SYN-ACK Packet:** Packet 21977 is the server's reply back to the PC, acknowledging the request.
 
 * **ACK Packet:** Packet 21978 is the PC's final confirmation to the server, completing the handshake.
+
+
+## 3) DNS Packet Analysis
+
+<img width="1436" height="313" alt="image" src="https://github.com/user-attachments/assets/0f42c713-5b99-40a8-aed8-d7f78e3ac830" />
+
+**3.1) What are the IP address and port number of the DNS server?**
+
+* **IP address:** 140.118.31.99
+  
+* **Destination port:** 53
+  
+
+**3.2) What is the domain name in the DNS query?**
+
+* youtube.com
+  
+**3.3) Which protocols does this DNS packet use? List the protocols from Layer 2 to Layer 5 in the TCP/IP five-layer model:**
+
+* **Layer 2 (Link):** Ethernet II
+  
+
+* **Layer 3 (Network):** IPv4 (Internet Protocol Version 4)
+  
+
+* **Layer 4 (Transport):** UDP (User Datagram Protocol)
+  
+
+* **Layer 5 (Application):** DNS (Domain Name System)
+
+
+
+
