@@ -281,6 +281,9 @@ First, locate `RRCSetupComplete` using:
 nr-rrc
 ```
 
+<img width="1440" height="134" alt="image" src="https://github.com/user-attachments/assets/c3c05965-683f-44af-a993-426875ebf703" />
+
+
 Expand:
 
 ```text
@@ -354,7 +357,7 @@ Answer:
 Apply:
 
 ```wireshark
-nas-5gs || ngap
+
 ```
 
 Find the PDU Session Establishment Accept and record the UE address:
