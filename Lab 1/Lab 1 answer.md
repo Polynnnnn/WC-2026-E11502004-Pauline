@@ -389,8 +389,7 @@ Answer:
 
 3. What does the successful Echo Reply prove about the UE connection?
 
-- A successful ping proves your internet connection is fully working. It shows that data can travel all the way through the 5G network and back, which is the final step after connecting to the tower and registering.
-
+- A successful echo replies proves that the internet connection is fully working. It shows that data can travel all the way through the 5G network and back, which is the final step after connecting to the tower and registering. All 10 requests received replies, so the success rate is 100%.
 
 ### Checkpoint 5: UE IP and User Plane — 15 points
 
