@@ -139,38 +139,41 @@ Apply these filters individually:
 ```wireshark
 ngap
 ```
-<img width="1438" height="871" alt="image" src="https://github.com/user-attachments/assets/b549772b-0ccf-478e-a7f0-3538b4311280" />
+<img width="1438" height="148" alt="image" src="https://github.com/user-attachments/assets/ee9c241b-9b8b-4070-98d9-095cdcf8bdba" />
+
 
 
 ```wireshark
 gtp
 ```
-<img width="1438" height="871" alt="image" src="https://github.com/user-attachments/assets/65b44f65-5e5c-44d0-bac0-57e51d1b7962" />
+<img width="1438" height="148" alt="image" src="https://github.com/user-attachments/assets/3788305e-467c-4909-860a-7857234c8cb2" />
+
 
 
 ```wireshark
 icmp
 ```
-<img width="1438" height="871" alt="image" src="https://github.com/user-attachments/assets/497c576e-3d86-40ea-b211-b51e94111377" />
+<img width="1424" height="175" alt="image" src="https://github.com/user-attachments/assets/66079ea7-c32f-4038-a2b7-9083cbe2e87b" />
+
 
 
 Complete the table:
 
 | Component | IP address | Evidence from the capture |
 |---|---|---|
-| UE PDU address |  |  |
-| gNB |  |  |
-| AMF |  |  |
-| UPF |  |  |
-| Data Network |  |  |
+| UE PDU address |10.0.0.2  |<img width="1438" height="333" alt="image" src="https://github.com/user-attachments/assets/301cad88-4ae9-44b7-a704-4b9274bcbcc0" />|
+| gNB |192.168.70.129  |<img width="1438" height="52" alt="image" src="https://github.com/user-attachments/assets/bb97510a-0636-46a5-9193-6efcd2982b6d" />|
+| AMF |129.168.70.132  |<img width="1438" height="52" alt="image" src="https://github.com/user-attachments/assets/bb97510a-0636-46a5-9193-6efcd2982b6d" />|
+| UPF |192.168.70.134  |<img width="1438" height="873" alt="image" src="https://github.com/user-attachments/assets/5f518e27-35ca-4eb0-b962-2d9afcbda670" />|
+| Data Network |192.168.70.135  |<img width="1438" height="333" alt="image" src="https://github.com/user-attachments/assets/7993f8e0-068a-4143-a4c8-73d2e5f21847" />|
 
 Complete the interface table:
 
 | Interface | Connected components | Main protocol | Purpose |
 |---|---|---|---|
-| N1 |  |  |  |
-| N2 |  |  |  |
-| N3 |  |  |  |
+| N1 |UE<->AMF (via gNB) |NAS |Registration messages |
+| N2 |gNb<->AMF  |ngap  |gNB–core messages |
+| N3 |gNB<->UPF  |gtp  |Tunnel for UE IP packets |
 
 The logical architecture is:
 
