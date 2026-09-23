@@ -206,36 +206,59 @@ Find the following messages in order:
 2. `RRCSetup`
 3. `RRCSetupComplete`
 
+<img width="1438" height="109" alt="image" src="https://github.com/user-attachments/assets/6eab0575-9c0c-45de-b092-9d1eefbe5878" />
+
 You may also try these specific filters:
 
 ```wireshark
 nr-rrc.rrcSetupRequest_element
 ```
+<img width="1438" height="109" alt="image" src="https://github.com/user-attachments/assets/74650fc8-d75a-4cbb-a8a4-d9b00ed2dab8" />
 
 ```wireshark
 nr-rrc.rrcSetup_element
 ```
+<img width="1438" height="109" alt="image" src="https://github.com/user-attachments/assets/50ac7119-bf55-4288-93fe-1181bd5264e0" />
 
 ```wireshark
 nr-rrc.rrcSetupComplete_element
 ```
+<img width="1438" height="109" alt="image" src="https://github.com/user-attachments/assets/ac13e1ec-6699-43b5-a36b-e53489b713dd" />
 
 Complete the table:
 
 | Message | Direction | Logical channel / SRB | Main purpose | Packet number |
 |---|---|---|---|---:|
-| RRCSetupRequest |  |  |  |  |
-| RRCSetup |  |  |  |  |
-| RRCSetupComplete |  |  |  |  |
+| RRCSetupRequest |UE to gNB  |UL-CCCH / SRB0   |Before connection  |104  |
+| RRCSetup |gNB to UE  |DL-CCCH / SRB0   |gNB sets up SRB1  |105  |
+| RRCSetupComplete |UE to gNB  |UL-DCCH / SRB1   |After setup  |108  |
 
 Answer the following questions:
 
 1. What is the establishment cause in `RRCSetupRequest`?
+   
+- The establishment cause is mo-Signalling. 
+<img width="857" height="109" alt="image" src="https://github.com/user-attachments/assets/94a9041e-2c35-4244-acbd-441d2d054cc4" />
+
 2. What SRB does `RRCSetupRequest` use? Why?
+
+- It uses SRB0. This is because a dedicated connection is not yet established.
+
 3. Which side sends `RRCSetup`?
+
+- The gNB sends it. It replies to UE. 
+  
 4. Which signaling radio bearer is used after the RRC connection is established?
+
+- SRB1 is used after the connection is set up.
+   
 5. Which NAS message is carried inside `RRCSetupComplete`?
+
+- It carries the Registration Request.
+   
 6. At the end of this procedure, is the UE only connected to the gNB, or is it already registered with the 5G Core? Explain.
+
+- The UE is only connected to the gNB. Establishing a radio connection does not mean network registration is complete. The 5G Core must accept the UE in a separate step.
 
 ### Checkpoint 3: RRC Connection Establishment — 35 points
 
