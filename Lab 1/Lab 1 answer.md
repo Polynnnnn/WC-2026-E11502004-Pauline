@@ -364,7 +364,7 @@ Find the PDU Session Establishment Accept and record the UE address:
 
 | Field | Observed value |
 |---|---|
-| UE IPv4 address |  |
+| UE IPv4 address |10.0.0.2  |
 
 Apply:
 
@@ -373,12 +373,24 @@ gtp || icmp
 ```
 
 Find one ICMP Echo Request and its Echo Reply. Confirm that the UE's IP packet is carried inside GTP-U between the gNB and UPF.
+<img width="1440" height="872" alt="image" src="https://github.com/user-attachments/assets/9181d487-2a2e-4223-81dc-14306ba37035" />
 
 Answer:
 
 1. What IPv4 address was assigned to the UE?
+   
+- The IPv4 address that was assigned is 10.0.0.2.
+
 2. How many ICMP Echo Request/Reply pairs are present?
+
+- There are 10 ICMP Echo Request/Reply pairs. The first one is 490/495 and it is encapsulated and the corresponding decapsulated one are 493/494
+
+<img width="1440" height="179" alt="image" src="https://github.com/user-attachments/assets/20ba61e0-9de6-4f33-89ba-5725a4a58ca2" />
+
 3. What does the successful Echo Reply prove about the UE connection?
+
+- A successful ping proves your internet connection is fully working. It shows that data can travel all the way through the 5G network and back, which is the final step after connecting to the tower and registering.
+
 
 ### Checkpoint 5: UE IP and User Plane — 15 points
 
