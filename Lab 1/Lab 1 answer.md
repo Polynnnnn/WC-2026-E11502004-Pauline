@@ -309,8 +309,12 @@ Compare the two packets:
 
 | Stage | Protocol message | Sender → receiver | Encapsulated information |
 |---|---|---|---|
-| Radio side | RRCSetupComplete |  |  |
-| Core side | NGAP InitialUEMessage |  |  |
+| Radio side | RRCSetupComplete |UE to gNB  |5GMM Registration Request  |
+| Core side | NGAP InitialUEMessage |gnB to AMF   |5GMM Registration Request  |
+
+<img width="885" height="826" alt="image" src="https://github.com/user-attachments/assets/10fcbdcc-821a-475b-a2be-20dbb9473115" />
+<img width="885" height="826" alt="image" src="https://github.com/user-attachments/assets/1b2368cc-58e6-4a40-bb8d-2ca2d6182752" />
+
 
 Finally, locate:
 
@@ -320,9 +324,20 @@ Finally, locate:
 Answer:
 
 1. What is the role of the gNB when it transports NAS messages?
+
+- The gNB acts as a relay between the UE and the AMF. It receives the NAS message via RRC signaling and forwards it to the core network via NGAP signaling.
+
 2. What is the difference between RRC and NAS signaling?
+
+- RRC signaling controls the radio connection strictly between the UE and the gNB. NAS signaling handles core network tasks, such as registration and session management, between the UE and the AMF.
+
 3. Is the Registration Request delivered directly from the UE to the AMF? Explain the protocol path.
+
+- No, it is routed through the gNB. The UE first sends the NAS request to the gNB inside an RRCSetupComplete message, and the gNB then forwards that NAS payload to the AMF inside an NGAP InitialUEMessage.
+
 4. Which message confirms that Registration has completed successfully?
+
+- The "Registration Accept" message sent by the AMF confirms the network has accepted the UE. The UE then acknowledges this with a final "Registration Complete" message.
 
 ### Checkpoint 4: RRC-to-NGAP/NAS Mapping — 25 points
 
