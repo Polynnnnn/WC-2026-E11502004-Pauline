@@ -357,7 +357,7 @@ Answer:
 Apply:
 
 ```wireshark
-
+gtp || icmp
 ```
 
 Find the PDU Session Establishment Accept and record the UE address:
