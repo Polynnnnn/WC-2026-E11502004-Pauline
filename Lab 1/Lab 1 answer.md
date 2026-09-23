@@ -1,4 +1,6 @@
-# Lab 1: Analyzing UE–gNB Connectivity in an OAI 5G SA Network(TA)
+# Lab 1: Analyzing UE–gNB Connectivity in an OAI 5G SA Network
+
+Pauline BEREAU E11502004
 
 ## 1. Lab Overview
 
