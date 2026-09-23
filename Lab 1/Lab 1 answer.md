@@ -259,6 +259,7 @@ Answer the following questions:
 6. At the end of this procedure, is the UE only connected to the gNB, or is it already registered with the 5G Core? Explain.
 
 - The UE is only connected to the gNB. Establishing a radio connection does not mean network registration is complete. The 5G Core must accept the UE in a separate step.
+  While an RRC connection only establishes a local radio signaling link allowing the UE and gNB to exchange control messages, 5G registration is a separate, subsequent process where the 5G Core network authenticates the user's subscription and officially accepts the device.
 
 ### Checkpoint 3: RRC Connection Establishment — 35 points
 
@@ -287,6 +288,7 @@ RRCSetupComplete
 → dedicatedNAS-Message
 → Registration Request
 ```
+<img width="885" height="826" alt="image" src="https://github.com/user-attachments/assets/8b885f88-994c-4f6f-801c-c98061f512c8" />
 
 Then apply:
 
@@ -301,6 +303,7 @@ InitialUEMessage
 → NAS-PDU
 → Registration Request
 ```
+<img width="885" height="826" alt="image" src="https://github.com/user-attachments/assets/88586a0b-9c38-429c-a225-b97c7714fa56" />
 
 Compare the two packets:
 
