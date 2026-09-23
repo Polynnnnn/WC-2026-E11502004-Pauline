@@ -429,6 +429,60 @@ Statistics → Flow Graph → Displayed packets
 
 However, the OAI RAN packets use loopback addresses. Manually separate the UE and gNB in your final diagram according to the RRC message direction.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    
+    participant UE as UE
+    participant gNB as gNB
+    participant AMF as AMF
+    participant UPF as UPF
+    participant DN as Data Network
+
+    rect rgb(240, 248, 255)
+    note over UE, AMF: --- CONTROL PLANE (Signaling) ---
+    
+    %% RRC Connection Establishment
+    UE->>gNB: RRCSetupRequest
+    gNB->>UE: RRCSetup
+    UE->>gNB: RRCSetupComplete [Includes: NAS Registration Request]
+    
+    %% Transfer to Core Network
+    gNB->>AMF: NGAP InitialUEMessage [NAS Registration Request]
+    
+    %% Security and Authentication
+    AMF->>UE: NAS Authentication Request
+    UE->>AMF: NAS Authentication Response
+    AMF->>UE: NAS Security Mode Command
+    UE->>AMF: NAS Security Mode Complete
+    
+    %% Registration Acceptance
+    AMF->>gNB: NGAP InitialContextSetupRequest [NAS Registration Accept]
+    gNB->>UE: RRC Reconfiguration [NAS Registration Accept]
+    UE->>gNB: RRC Reconfiguration Complete [NAS Registration Complete]
+    gNB->>AMF: NGAP InitialContextSetupResponse
+    
+    %% PDU Session Establishment
+    note over UE, AMF: PDU Session Establishment Procedure
+    UE->>AMF: NAS PDU Session Establishment Request (via gNB)
+    AMF->>UE: NAS PDU Session Establishment Accept (via gNB)
+    end
+
+    rect rgb(230, 255, 236)
+    note over UE, DN: --- USER PLANE (Data Traffic) ---
+    
+    %% Test Traffic (Ping)
+    UE->>gNB: ICMP Echo Request (Ping IPv4)
+    note over gNB, UPF: Encapsulation in GTP-U tunnel (N3 Interface)
+    gNB->>UPF: GTP-U [ICMP Echo Request]
+    UPF->>DN: ICMP Echo Request (Decapsulated packet)
+    
+    DN->>UPF: ICMP Echo Reply
+    UPF->>gNB: GTP-U [ICMP Echo Reply]
+    gNB->>UE: ICMP Echo Reply
+    end
+```
+
 ### Checkpoint 6: Final Sequence Diagram — 5 points
 
 - Include the required components and signaling stages. — 3 points
