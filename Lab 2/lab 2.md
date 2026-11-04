@@ -298,6 +298,7 @@ A spreadsheet, a drawing tool, or a hand-drawn diagram is acceptable. Include th
 
 #DL-Heavy 
 
+```mermaid
 gantt
     title DL-Heavy TDD Time Allocation (5 ms Period)
     dateFormat X
@@ -314,9 +315,11 @@ gantt
     Slot 7 (Mixed: 6D 4F 4U) :crit, m7, 3500, 4000
     Slot 8 (U)   :done, u8, 4000, 4500
     Slot 9 (U)   :done, u9, 4500, 5000
+```
 
 #Balanced 
 
+```mermaid
 gantt
     title Balanced TDD Time Allocation (2.5 ms Period - 2 Repetitions in 5 ms)
     dateFormat X
@@ -336,7 +339,7 @@ gantt
     Slot 8 (U)   :done, u8, 4000, 4500
     Slot 9 (U)   :done, u9, 4500, 5000
 
-
+```
 
 
 
