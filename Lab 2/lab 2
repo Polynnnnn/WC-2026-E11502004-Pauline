@@ -141,14 +141,22 @@ Complete the table:
 
 | Scenario | Throughput (Mbps) | Packet loss (%) | Jitter (ms) |
 | --- | ---: | ---: | ---: |
-| B | | | |
-| C | | | |
+| B | 109.1172497 | 0.23565878306653645 | 0.11619665995310689 |
+| C | 124.4167491 | 2.133919261135111 | 0.16204804777679407 |
 
 Answer:
 
 1. Does C have higher uplink throughput than B?
+
+Yes. Scenario C achieves higher uplink throughput than Scenario B (124.42 Mbps vs. 109.12 Mbps).
+
 2. Does C have lower packet loss than B?
+
+No. Scenario C has higher packet loss than Scenario B (2.13% vs. 0.24%).
+
 3. What trade-off, if any, is visible when changing from B to C?
+
+Compared with Scenario B, Scenario C has higher throughput, higher packet loss, and higher jitter. These results suggest a trade-off between throughput performance and link stability: while allocating more uplink resources in Scenario C provides more transmission opportunities and increases overall throughput, it also introduces greater queueing variance (higher jitter) and higher packet drop rates (packet loss) under heavy load.
 
 A simple answer format is:
 
