@@ -72,6 +72,15 @@ Complete the table:
 
 Yes, the traffic direction shown in each JSON file matches the scenario description provided in the lab instructions.
 
+A. 
+<img width="1433" height="725" alt="image" src="https://github.com/user-attachments/assets/6dec5ef1-cb19-4ed1-a7a3-6026541500c5" />
+
+B. 
+<img width="1433" height="725" alt="image" src="https://github.com/user-attachments/assets/c5c77473-d9d0-4a67-9cb3-06bb4fb58481" />
+
+C. 
+<img width="1433" height="725" alt="image" src="https://github.com/user-attachments/assets/8b9ba42d-f334-493c-bef8-a35b393ee212" />
+
 
 
 
@@ -83,8 +92,14 @@ In each JSON file, find:
 end → sum → bits_per_second
 ```
 A. bits_per_second":	90654195.8358403
+<img width="1433" height="725" alt="image" src="https://github.com/user-attachments/assets/daf51b58-a8e4-45e0-a136-f45575e41d3a" />
+
 B. bits_per_second":	109117249.69037457
+<img width="1433" height="725" alt="image" src="https://github.com/user-attachments/assets/37f940e7-a68a-4960-bdee-739b2fe16b6f" />
+
 C. bits_per_second":	124416749.13023271
+<img width="1433" height="725" alt="image" src="https://github.com/user-attachments/assets/42235bb7-3118-4a6d-b9b4-81e3d217a7cb" />
+
 
 Convert the value to Mbps:
 
@@ -144,6 +159,12 @@ Complete the table:
 | B | 109.1172497 | 0.23565878306653645 | 0.11619665995310689 |
 | C | 124.4167491 | 2.133919261135111 | 0.16204804777679407 |
 
+B. 
+<img width="1433" height="725" alt="image" src="https://github.com/user-attachments/assets/ab691b3d-d676-4023-a470-45de0acc9550" />
+
+C. 
+<img width="1433" height="725" alt="image" src="https://github.com/user-attachments/assets/2493e4fc-eb1b-4cf3-8b3b-f7c76970bc42" />
+
 Answer:
 
 1. Does C have higher uplink throughput than B?
@@ -194,6 +215,7 @@ These captures contain NR MAC messages carried over UDP. **Enable MAC-NR-over-UD
    nr-rrc.systemInformationBlockType1_element
    ```
 
+
 4. Select a SIB1 packet. In the packet details, expand:
 
    ```text
@@ -215,6 +237,16 @@ These captures contain NR MAC messages carried over UDP. **Enable MAC-NR-over-UD
    nrofUplinkSlots
    nrofUplinkSymbols
    ```
+For tdd-dl-heavy-sib1.pcapng
+
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/ba422bb2-15e0-443d-bbad-5fdf24d149c0" />
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/887974d2-c2fc-400e-9ed8-a027ac30d6cb" />
+
+For tdd-balanced-sib1.pcapng
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/7959a288-911e-4af5-80ec-f84314c7c3d9" />
+
+
+
 
 6. Check whether `pattern2` is also present.
 7. Repeat for `tdd-balanced-sib1.pcapng`.
@@ -237,19 +269,26 @@ Complete the table for `pattern1`:
 
 | Item | DL-heavy: A/B | Balanced: C |
 | --- | --- | --- |
-| Configuration capture filename | | |
-| SIB1 packet number | | |
-| `referenceSubcarrierSpacing` (kHz) | | |
-| `dl-UL-TransmissionPeriodicity` (ms) | | |
-| `nrofDownlinkSlots` | | |
-| `nrofDownlinkSymbols` | | |
-| `nrofUplinkSlots` | | |
-| `nrofUplinkSymbols` | | |
-| Is `pattern2` present? | | |
+| Configuration capture filename | tdd-dl-heavy-sib1.pcapng | tdd-balanced-sib1.pcapng |
+| SIB1 packet number | 2 | 2 |
+| `referenceSubcarrierSpacing` (kHz) | 30 | 30 |
+| `dl-UL-TransmissionPeriodicity` (ms) | 5 | 2p5 |
+| `nrofDownlinkSlots` | 7 | 2 |
+| `nrofDownlinkSymbols` | 6 | 6 |
+| `nrofUplinkSlots` | 2 | 2 |
+| `nrofUplinkSymbols` | 4 | 4 |
+| Is `pattern2` present? | no | no |
 
 If `pattern2` is present, add another table containing its period and four slot/symbol counts. It uses the same reference SCS.
 
 Take **one screenshot per configuration** showing the selected SIB1 packet and the expanded TDD fields. Include `pattern2` in an additional screenshot if it is present and does not fit.
+
+dl heavy 
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/2211ad33-337f-4ffa-8023-9d7971f1c28b" />
+
+balanced 
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/ea25a3c6-3c0b-442d-abd8-a70989123ac5" />
+
 
 ### 4.4 Draw the TDD Time Allocation
 
