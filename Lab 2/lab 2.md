@@ -272,7 +272,7 @@ Complete the table for `pattern1`:
 | Configuration capture filename | tdd-dl-heavy-sib1.pcapng | tdd-balanced-sib1.pcapng |
 | SIB1 packet number | 2 | 2 |
 | `referenceSubcarrierSpacing` (kHz) | 30 | 30 |
-| `dl-UL-TransmissionPeriodicity` (ms) | 5 | 2p5 |
+| `dl-UL-TransmissionPeriodicity` (ms) | 5 | 2.5 |
 | `nrofDownlinkSlots` | 7 | 2 |
 | `nrofDownlinkSymbols` | 6 | 6 |
 | `nrofUplinkSlots` | 2 | 2 |
@@ -295,6 +295,50 @@ balanced
 Draw one diagram for DL-heavy and one for balanced. **Use the same 0–5 ms time axis for both diagrams.** Derive each repeating period from SIB1 and repeat the shorter pattern as needed to fill the 5 ms interval. Mark every repeating-period boundary.
 
 A spreadsheet, a drawing tool, or a hand-drawn diagram is acceptable. Include the diagrams as images in your report.
+
+#DL-Heavy 
+
+gantt
+    title DL-Heavy TDD Time Allocation (5 ms Period)
+    dateFormat X
+    axisFormat %s ms
+
+    section DL-Heavy (5 ms)
+    Slot 0 (D)   :active, d0, 0, 500
+    Slot 1 (D)   :active, d1, 500, 1000
+    Slot 2 (D)   :active, d2, 1000, 1500
+    Slot 3 (D)   :active, d3, 1500, 2000
+    Slot 4 (D)   :active, d4, 2000, 2500
+    Slot 5 (D)   :active, d5, 2500, 3000
+    Slot 6 (D)   :active, d6, 3000, 3500
+    Slot 7 (Mixed: 6D 4F 4U) :crit, m7, 3500, 4000
+    Slot 8 (U)   :done, u8, 4000, 4500
+    Slot 9 (U)   :done, u9, 4500, 5000
+
+#Balanced 
+
+gantt
+    title Balanced TDD Time Allocation (2.5 ms Period - 2 Repetitions in 5 ms)
+    dateFormat X
+    axisFormat %s ms
+
+    section Period 1 (0 - 2.5 ms)
+    Slot 0 (D)   :active, d0, 0, 500
+    Slot 1 (D)   :active, d1, 500, 1000
+    Slot 2 (Mixed: 6D 4F 4U) :crit, m2, 1000, 1500
+    Slot 3 (U)   :done, u3, 1500, 2000
+    Slot 4 (U)   :done, u4, 2000, 2500
+
+    section Period 2 (2.5 - 5.0 ms)
+    Slot 5 (D)   :active, d5, 2500, 3000
+    Slot 6 (D)   :active, d6, 3000, 3500
+    Slot 7 (Mixed: 6D 4F 4U) :crit, m7, 3500, 4000
+    Slot 8 (U)   :done, u8, 4000, 4500
+    Slot 9 (U)   :done, u9, 4500, 5000
+
+
+
+
 
 For the normal cyclic prefix used in this exercise, each reference slot contains **14 OFDM symbols**, numbered **0–13**. Use the SIB1 **reference SCS** to construct the common pattern:
 
