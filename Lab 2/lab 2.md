@@ -609,13 +609,36 @@ Record the scenario, display filter, packet numbers, and time interval.
 Answer each question in two or three sentences:
 
 1. Does Scenario A use a TDD setting that matches its traffic direction?
+
+Yes, Scenario A uses a DL-heavy TDD setting for downlink traffic. This setting gives 74.3% of the time to downlink, helping download speed reach 90.65 Mbps.
+
 2. Why is Scenario B expected to have limited uplink resources? Cite a parameter or count from the DL-heavy SIB1 reference configuration.
+
+Scenario B has limited uplink space because its DL-heavy setting gives only 2 full uplink slots (nrofUplinkSlots: 2). This leaves only 32 uplink symbols every 5 ms, giving the UE very few chances to upload data.
+
 3. How much does uplink throughput change from B to C?
+
+Uplink throughput goes up from 109.12 Mbps in Scenario B to 124.42 Mbps in Scenario C. This is an improvement of about 14.02% because Scenario C gives twice as much uplink time.
+
 4. What negative result, if any, is visible in C? Support your answer with packet loss or jitter values.
+
+Scenario C causes higher packet loss and slightly higher jitter. Packet loss jumps from 0.24% in Scenario B to 2.13% in Scenario C, while jitter goes from 0.116 ms to 0.162 ms.
+
 5. Why can increasing UL resources improve uplink throughput?
+
+Giving more uplink resources gives the UE more time slots to send data. The UE waits less in line, so it can upload more data per second.
+
 6. Is adding more UL resources always the best solution? Explain using throughput and packet loss.
+
+No, adding more uplink time is not always best because it can make the connection unstable. Even though throughput increased in Scenario C, packet loss also got almost ten times worse (2.13%).
+
 7. Suggest one simple follow-up test that could improve throughput without producing too much packet loss.
+
+You can test different iperf3 sending rates in Scenario C to find the safest speed with lower packet loss. You could also test flexible slots (F) to handle uplink traffic bursts better.
+
 8. What can the configuration captures tell you that the iperf3 JSON cannot? Why are separately recorded configuration captures not direct proof of the configuration during an earlier test?
+
+Configuration captures show actual 3GPP SIB1 parameters like subcarrier spacing and slot patterns, which are not in iperf3 JSON files. They are not direct proof because they were recorded in a separate test run, so settings could have changed in between.
 
 ## 12. Submission Checklist
 
