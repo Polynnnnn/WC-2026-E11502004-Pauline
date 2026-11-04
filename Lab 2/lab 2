@@ -74,6 +74,7 @@ Yes, the traffic direction shown in each JSON file matches the scenario descript
 
 
 
+
 ## 4. Task 2 — Compare Throughput
 
 In each JSON file, find:
@@ -110,9 +111,20 @@ Improvement (%) = (C - B) ÷ B × 100
 Answer:
 
 1. What is the downlink throughput in Scenario A?
+
+90.65 Mbps (90,654,195.84 bps / 1,000,000).
+
 2. What is the uplink throughput in Scenario B?
+
+109.12 Mbps (109,117,249.69 bps / 1,000,000).
+
 3. Is the uplink throughput higher in B or C?
+
+The uplink throughput is higher in Scenario C (124.42 Mbps vs. 109.12 Mbps).
+
 4. By approximately what percentage does C improve over B?
+
+Scenario C improves over Scenario B by approximately 14.02%.
 
 > Use the JSON `bits_per_second` value. Do not recalculate throughput using the other time fields.
 
