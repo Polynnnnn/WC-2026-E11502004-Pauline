@@ -296,7 +296,7 @@ Draw one diagram for DL-heavy and one for balanced. **Use the same 0–5 ms time
 
 A spreadsheet, a drawing tool, or a hand-drawn diagram is acceptable. Include the diagrams as images in your report.
 
-#DL-Heavy 
+#### DL-Heavy 
 
 ```mermaid
 gantt
@@ -317,27 +317,27 @@ gantt
     Slot 9 (U)               :done, u9, 00:04.500, 00:05.000
 ```
 
-#Balanced 
+#### Balanced 
 
 ```mermaid
 gantt
     title Balanced TDD Time Allocation (2.5 ms Period - 2 Repetitions in 5 ms)
-    dateFormat X
-    axisFormat %s ms
+    dateFormat mm:ss.SSS
+    axisFormat %S.%L ms
 
-    section Period 1 (0 - 2.5 ms)
-    Slot 0 (D)   :active, d0, 0, 500
-    Slot 1 (D)   :active, d1, 500, 1000
-    Slot 2 (Mixed: 6D 4F 4U) :crit, m2, 1000, 1500
-    Slot 3 (U)   :done, u3, 1500, 2000
-    Slot 4 (U)   :done, u4, 2000, 2500
+    section Period 1 (0.0 - 2.5 ms)
+    Slot 0 (D)               :active, d0, 00:00.000, 00:00.500
+    Slot 1 (D)               :active, d1, 00:00.500, 00:01.000
+    Slot 2 (Mixed 6D 4F 4U)  :crit, m2, 00:01.000, 00:01.500
+    Slot 3 (U)               :done, u3, 00:01.500, 00:02.000
+    Slot 4 (U)               :done, u4, 00:02.000, 00:02.500
 
     section Period 2 (2.5 - 5.0 ms)
-    Slot 5 (D)   :active, d5, 2500, 3000
-    Slot 6 (D)   :active, d6, 3000, 3500
-    Slot 7 (Mixed: 6D 4F 4U) :crit, m7, 3500, 4000
-    Slot 8 (U)   :done, u8, 4000, 4500
-    Slot 9 (U)   :done, u9, 4500, 5000
+    Slot 5 (D)               :active, d5, 00:02.500, 00:03.000
+    Slot 6 (D)               :active, d6, 00:03.000, 00:03.500
+    Slot 7 (Mixed 6D 4F 4U)  :crit, m7, 00:03.500, 00:04.000
+    Slot 8 (U)               :done, u8, 00:04.000, 00:04.500
+    Slot 9 (U)               :done, u9, 00:04.500, 00:05.000
 
 ```
 
@@ -381,17 +381,19 @@ For two patterns, sum the counts and durations of both patterns before calculati
 
 | TDD setting | Repeating duration (ms) | Total reference slots | DL symbols | UL symbols | Flexible symbols | Configured UL symbol share (%) |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| DL-heavy | | | | | | |
-| Balanced | | | | | | |
+| DL-heavy | 5 | 10 | 104 | 32 | 4 | 22.86% |
+| Balanced | 2.5 | 5 | 34 | 32 | 4 | 45.71% |
 
 Next, count the symbols over the **same 5 ms interval** shown in your diagrams. Multiply each per-sequence count by the number of complete repetitions in 5 ms. For these captures, 5 ms contains a whole number of repetitions for both configurations.
 
 | TDD setting | Repeating duration (ms) | Repetitions in 5 ms | DL symbols in 5 ms | UL symbols in 5 ms | Flexible symbols in 5 ms |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| DL-heavy | | | | | |
-| Balanced | | | | | |
+| DL-heavy | 5 | 1 | 104 | 32 | 4 |
+| Balanced | 2.5 | 2 | 68 | 64 | 8 |
 
 **Question:** Can two patterns have the same UL symbol count per period but provide different numbers of UL symbols per unit time? Explain using your two tables.
+
+Yes. As shown in Table 1, both the DL-heavy and Balanced configurations contain the exact same number of uplink symbols per repeating sequence (32 UL symbols per period).    wireless lab2 (1).pdf + 1 However, because the Balanced pattern has a shorter repeating duration of 2.5 ms compared to 5 ms for DL-heavy, it completes 2 full repetitions within a standard 5 ms timeframe. As shown in Table 2, this provides 64 UL symbols per 5 ms in the Balanced setting versus only 32 UL symbols per 5 ms in the DL-heavy setting. Therefore, the shorter periodicity doubles the uplink transmission opportunities per unit time (45.71% UL share vs. 22.86% UL share), even though their per-period UL symbol counts are identical.
 
 ### 4.5 Connect SIB1 to the Performance Results
 
