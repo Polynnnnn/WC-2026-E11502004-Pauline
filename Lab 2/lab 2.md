@@ -546,13 +546,19 @@ Record the number of displayed packets:
 
 | Scenario | Displayed TCP retransmissions |
 | --- | ---: |
-| A | |
-| B | |
-| C | |
+| A | 14 | <img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/bddeb226-9f82-4dc8-9530-ef0214c9f888" /> |
+
+| B | 12 | <img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/c5692dbd-b85f-4a98-a0f9-07ee3696ffb9" /> |
+
+| C | 12 | <img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/6031b20b-039c-496c-928d-ad5ad4cec9a8" /> |
+
 
 > Report the number displayed by Wireshark using the specified filter. Counts may vary with Wireshark analysis settings. Include screenshots showing the filter and displayed count for each scenario. The filter includes any TCP flows that Wireshark can decode in the capture; a displayed retransmission is not, by itself, proof of loss in the UDP test.
 
 **Question:** Do these TCP retransmissions directly represent lost UDP performance packets?
+
+No, these TCP retransmissions do not represent lost UDP performance packets.
+The main test data is sent using UDP, which does not retransmit lost packets. The retransmissions caught by the filter come from the separate TCP control connection that iperf3 uses to start, manage, and end the test. Therefore, a retransmission on the TCP control connection is not proof of lost UDP data packets.
 
 ## 10. Task 8 — RTT and Packet Interval
 
@@ -570,9 +576,11 @@ Select one packet from the iperf3 TCP control connection and record its ACK RTT:
 
 | Scenario | Packet number | Example TCP ACK RTT |
 | --- | ---: | --- |
-| A, B, or C | | |
+| A | 1833 | 485.000 microseconds |
 
 This value is the RTT of the TCP control connection. It is not the RTT of the UDP data packets.
+
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/49500477-f9ef-4953-beb3-1cbb3bb68c4e" />
 
 ### Packet Interval
 
@@ -585,12 +593,14 @@ In the packet details of the second packet, find:
 ```text
 Time delta from previous displayed frame
 ```
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/4b563e3a-f7f7-4478-9296-7ae356bb03b5" />
+
 
 Record the scenario, display filter, packet numbers, and time interval.
 
 | Scenario | Display filter | Packet numbers | Time interval |
 | --- | --- | --- | --- |
-| | | | |
+| A scenario-a-dl-heavy-downlink.pcapng | tcp.analysis.ack_rtt && udp | 1833 - 1842 | 18.162000 milliseconds |
 
 **Note:** The time interval depends on the applied display filter. Make sure the selected packets are distinct data packets, not duplicated observations from different capture points. Do not use their interval to infer the TDD slot pattern.
 
