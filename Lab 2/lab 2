@@ -74,7 +74,6 @@ Yes, the traffic direction shown in each JSON file matches the scenario descript
 
 
 
-
 ## 4. Task 2 — Compare Throughput
 
 In each JSON file, find:
@@ -82,6 +81,9 @@ In each JSON file, find:
 ```text
 end → sum → bits_per_second
 ```
+A. bits_per_second":	90654195.8358403
+B. bits_per_second":	109117249.69037457
+C. bits_per_second":	124416749.13023271
 
 Convert the value to Mbps:
 
@@ -89,19 +91,21 @@ Convert the value to Mbps:
 Throughput (Mbps) = bits_per_second ÷ 1,000,000
 ```
 
+
 Complete the table:
 
 | Scenario | Direction | Throughput (Mbps) |
 | --- | --- | ---: |
-| A | Downlink | |
-| B | Uplink | |
-| C | Uplink | |
+| A | Downlink | 90.65419584 |
+| B | Uplink | 109.1172497 |
+| C | Uplink | 124.4167491 |
 
 Calculate how much C improves over B:
 
 ```text
 Improvement (%) = (C - B) ÷ B × 100
 ```
+14.02115563% 
 
 Answer:
 
