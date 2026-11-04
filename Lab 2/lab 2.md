@@ -301,20 +301,20 @@ A spreadsheet, a drawing tool, or a hand-drawn diagram is acceptable. Include th
 ```mermaid
 gantt
     title DL-Heavy TDD Time Allocation (5 ms Period)
-    dateFormat X
-    axisFormat %s ms
+    dateFormat mm:ss.SSS
+    axisFormat %S.%L ms
 
     section DL-Heavy (5 ms)
-    Slot 0 (D)   :active, d0, 0, 500
-    Slot 1 (D)   :active, d1, 500, 1000
-    Slot 2 (D)   :active, d2, 1000, 1500
-    Slot 3 (D)   :active, d3, 1500, 2000
-    Slot 4 (D)   :active, d4, 2000, 2500
-    Slot 5 (D)   :active, d5, 2500, 3000
-    Slot 6 (D)   :active, d6, 3000, 3500
-    Slot 7 (Mixed: 6D 4F 4U) :crit, m7, 3500, 4000
-    Slot 8 (U)   :done, u8, 4000, 4500
-    Slot 9 (U)   :done, u9, 4500, 5000
+    Slot 0 (D)               :active, d0, 00:00.000, 00:00.500
+    Slot 1 (D)               :active, d1, 00:00.500, 00:01.000
+    Slot 2 (D)               :active, d2, 00:01.000, 00:01.500
+    Slot 3 (D)               :active, d3, 00:01.500, 00:02.000
+    Slot 4 (D)               :active, d4, 00:02.000, 00:02.500
+    Slot 5 (D)               :active, d5, 00:02.500, 00:03.000
+    Slot 6 (D)               :active, d6, 00:03.000, 00:03.500
+    Slot 7 (Mixed 6D 4F 4U)  :crit, m7, 00:03.500, 00:04.000
+    Slot 8 (U)               :done, u8, 00:04.000, 00:04.500
+    Slot 9 (U)               :done, u9, 00:04.500, 00:05.000
 ```
 
 #Balanced 
