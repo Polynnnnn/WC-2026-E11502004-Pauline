@@ -458,9 +458,9 @@ Complete the table using the supplied scenario mapping, the SIB1 reference confi
 
 | Scenario | TDD setting | Traffic direction | Is the setting suitable for this direction? Why? |
 | --- | --- | --- | --- |
-| A | DL-heavy | Downlink | |
-| B | DL-heavy | Uplink | |
-| C | Balanced | Uplink | |
+| A | DL-heavy | Downlink | Yes. The DL-heavy configuration allocates a 74.3% downlink symbol share (104 out of 140 symbols in 5 ms). This provides abundant downlink transmission opportunities matching heavy download traffic, enabling a high throughput of 90.65 Mbps. |
+| B | DL-heavy | Uplink | No. The DL-heavy setting limits uplink opportunities to a 22.86% symbol share (32 out of 140 symbols in 5 ms). Restricting uplink transmission opportunities under heavy uplink traffic limits performance to 109.12 Mbps. |
+| C | Balanced | Uplink | Yes (More suitable than B). The balanced setting doubles the uplink resource allocation to a 45.71% symbol share (64 out of 140 symbols in 5 ms). Giving uplink traffic twice as many opportunities improves throughput to 124.42 Mbps. |
 
 Use these ideas:
 
@@ -473,6 +473,9 @@ Use these ideas:
 > The configuration captures show the reference broadcast TDD settings. The iperf3 JSON reports performance; it does not contain TDD parameters. The scenario captures are used for traffic analysis and need not include SIB1.
 
 **Question:** Why might Scenario C achieve better uplink throughput than Scenario B? Refer to your SIB1 diagrams and measured results.
+
+Scenario C gets higher uplink throughput than Scenario B (124.42 Mbps vs. 109.12 Mbps, which is a 14.02% increase) because its TDD setting gives the UE twice as many chances to send data. As shown in the SIB1 diagrams: Scenario B (DL-heavy) has a longer 5 ms pattern with only 2 full Uplink slots, giving 32 Uplink symbols every 5 ms (22.86% share).     Scenario C (Balanced) has a shorter 2.5 ms pattern that repeats 2 times in 5 ms, giving 64 Uplink symbols every 5 ms (45.71% share). Because Scenario C doubles the number of Uplink symbols per unit of time, the UE spends less time waiting and can upload more data faster.
+
 
 ## 8. Task 6 — Find GTP-U Information
 
@@ -493,13 +496,13 @@ Record the following information from one packet:
 
 | Item | Value |
 | --- | --- |
-| Scenario capture filename | |
-| Packet number | |
-| Outer source IP | |
-| Outer destination IP | |
-| Inner source IP | |
-| Inner destination IP | |
-| TEID | |
+| Scenario capture filename | scenario-a-dl-heavy-downlink.pcapng | scenario-b-dl-heavy-uplink.pcapng | scenario-c-balanced-uplink.pcapng |
+| Packet number | 1831 | 2065 | 1430 |
+| Outer source IP | 192.168.70.129 | 192.168.70.129 | 192.168.70.129 |
+| Outer destination IP | 192.168.70.134 | 192.168.70.134 | 192.168.70.134 |
+| Inner source IP | 10.0.0.6 | 10.0.0.6 | 10.0.0.6 |
+| Inner destination IP | 192.168.70.135 | 192.168.70.135 | 192.168.70.135 |
+| TEID | 0x00000011 | 0x00000012 | 0x00000013 |
 
 Meaning:
 
@@ -508,6 +511,22 @@ Meaning:
 - **TEID:** Identifies the GTP-U tunnel at the receiving endpoint.
 
 Take one screenshot showing the selected packet and these fields.
+
+#### scenario-a-dl-heavy-downlink.pcapng
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/d7199ed8-842b-4301-a2d4-7f8a36634455" />
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/3756e27b-f915-4a67-a25d-9734cc671f38" />
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/42b4745f-ac8e-4cc7-91d7-24d5d2b13bdf" />
+
+#### scenario-b-dl-heavy-uplink.pcapng
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/4a3f7c69-d842-42be-91ff-64ca93781716" />
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/e022cce7-6a74-468c-8406-1a522e14ebaf" />
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/f0c6571f-1276-4a94-a272-cbf0feb87673" />
+
+#### scenario-c-balanced-uplink.pcapng
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/20222094-db1d-4bb5-9529-ac5abdfc867a" />
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/185c7b96-38e8-43e6-8bb4-79258afd4d61" />
+<img width="1433" height="900" alt="image" src="https://github.com/user-attachments/assets/771ab56e-3ff4-49f0-b500-2e78fc07a508" />
+
 
 > Some GTP packets are echo or control-related packets. Select one that contains an inner IPv4 packet.
 
