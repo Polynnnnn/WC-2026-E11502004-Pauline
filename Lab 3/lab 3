@@ -73,8 +73,16 @@ Take screenshots showing the gNB and UE successfully connected.
 **Questions:**
 
 1. Does a successful NG Setup guarantee that a UE can register? Explain.
+
+No. NG Setup only confirms that the control-plane interface (N2) between the gNB and the AMF is operational. UE registration is an end-to-end NAS procedure that still requires valid subscriber credentials in the UDM/AUSF, mutual authentication, and security context establishment.
+
 2. Why can the UE establish an RRC connection but still fail Registration?
+
+RRC connection establishment only sets up the radio-level control link between the UE and the gNB. Registration happens afterward at the NAS layer with the AMF/AUSF and can fail due to an unknown IMSI, mismatched authentication keys (K/OPc), or core network policy rejections.
+
 3. What additional procedure is required after Registration before user data can be exchanged?
+
+A PDU Session Establishment procedure is required. It allocates an IP address to the UE, configures the GTP-U user-plane tunnel (N3) between the gNB and UPF, and brings up the virtual tunnel interface (`oaitun_ue1`).
 
 ## 4. Task 2 — Investigate RFsimulator Communication
 
