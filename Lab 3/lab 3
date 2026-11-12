@@ -224,10 +224,23 @@ RTT Difference = Average RTT(C) - Average RTT(A)
 **Questions:**
 
 1. Which scenario has the highest average RTT?
+
+
 2. Does increasing packet size always increase RTT in your measurements?
+
+
+
 3. Why might a larger packet require more transmission or processing resources?
+
+
+
 4. What factors other than packet size could affect RTT in a software-based 5G network?
+
+Host CPU load, Linux/WSL2 thread scheduling jitter, Docker virtual bridge overhead, background processes, and TDD frame structure alignment (waiting for the next UL/DL slot) all influence RTT.
+
 5. Can these results be interpreted as real over-the-air 5G latency? Explain.
+
+No. Real over-the-air 5G latency is governed by hardware processing pipelines, RF front-end delays, air propagation time, and channel retransmissions (HARQ) caused by noise/fading, whereas RFsimulator reflects software execution speed and local TCP socket latency.
 
 Do not assume that RTT must increase with packet size. Use your measured values to support your explanation.
 
@@ -293,9 +306,20 @@ Confirm that the UE successfully registers again and that Ping works.
 **Questions:**
 
 1. Why can the UE potentially synchronize with the gNB even when the IMSI is incorrect?
+
+Cell search and synchronization rely solely on broadcast physical-layer signals (PSS, SSS, PBCH/MIB, and SIB1), which contain no subscriber-specific information and require no authentication.
+
 2. Which network function is involved in UE authentication?
+
+The **AUSF** (Authentication Server Function), working together with the **UDM** (Unified Data Management, which stores subscriber credentials) and the **AMF** (which relays NAS authentication messages).
+
 3. Why does changing an IMSI affect Registration but not the RFsimulator TCP connection itself?
+
+The RFsimulator TCP connection operates below the 5G protocol stack to transport raw IQ samples between the simulated radios. The IMSI is a core-network subscriber identifier evaluated much higher up in the NAS layer during authentication.
+
 4. What evidence proves that restoring the correct configuration solved the problem?
+
+
 
 Submit evidence from both the failed and recovered connections.
 
@@ -318,9 +342,20 @@ Complete the comparison:
 **Questions:**
 
 1. Which parts of the 5G system remain functional when physical RF hardware is replaced with RFsimulator?
+
+The entire 5G Core (AMF, SMF, UPF, AUSF, UDM) and the complete 5G NR RAN protocol stack (NAS, RRC, SDAP, PDCP, RLC, MAC, and baseband PHY) remain active and functional.
+
 2. Why is RFsimulator useful for testing the 5G protocol stack?
+
+It eliminates the cost, licensing, and hardware complexity of SDRs/antennas while offering a deterministic, reproducible environment ideal for debugging signaling flows and core-RAN integration.
+
 3. Why might latency and throughput differ between RFsimulator and a real 5G deployment?
+
+RFsimulator is bounded by general-purpose CPU speed and OS scheduling jitter rather than real-time hardware clocks, and it omits wireless channel impairments (interference, fading, path loss) that dynamically reduce throughput and trigger HARQ retransmissions in real networks.
+
 4. What would need to change if you wanted to test a physical UE instead of OAI nrUE?
+
+WE would need to replace RFsimulator with a supported SDR (such as a USRP) and antennas connected to the gNB, operate in an RF-shielded enclosure or licensed frequency band, and provision a physical programmable SIM/USIM card with matching IMSI, K, and OPc values in the CN5G database.
 
 ## 9. Final Analysis
 
