@@ -232,7 +232,7 @@ RTT Difference = Average RTT(C) - Average RTT(A)
 
 3. Why might a larger packet require more transmission or processing resources?
 
-
+Larger IP packets require more transport block bits at the MAC/PHY layers (potentially spanning more resource blocks or multiple HARQ/RLC segments), more LDPC encoding/decoding cycles, and larger memory copies across the virtual network interfaces and TCP sockets.
 
 4. What factors other than packet size could affect RTT in a software-based 5G network?
 
@@ -362,10 +362,18 @@ WE would need to replace RFsimulator with a supported SDR (such as a USRP) and a
 Answer each question in three to five sentences.
 
 1. Describe the complete process from starting the OAI 5GC to successful user-plane connectivity.
+
+First, OAI CN5G containers are launched via Docker Compose, initializing the core network functions (AMF, SMF, UPF, AUSF, UDM). Next, the gNB starts and establishes an N2 control-plane association with the AMF via NG Setup. The nrUE then connects to the gNB over RFsimulator, synchronizes with broadcast signals, establishes an RRC connection, and completes NAS Registration and authentication with the AMF/AUSF. Finally, a PDU Session is established, creating the GTP-U tunnel to the UPF and bringing up the `oaitun_ue1` interface (`10.0.0.2`), enabling end-to-end IP pings to the External DN (`192.168.70.135`).
+
 2. Explain the difference between an RFsimulator TCP connection and a 5G PDU Session.
+
+The RFsimulator TCP connection is a simulation artifact on port 4043 that transports raw baseband IQ samples between `nr-softmodem` and `nr-uesoftmodem` in place of physical antennas. In contrast, a 5G PDU Session is a logical 3GPP user-plane service connecting the UE to an external data network via GTP-U tunnels across the gNB and UPF. The TCP socket emulates the physical radio medium, whereas the PDU Session carries the actual user IP traffic over that medium.
+
 3. Based on your measurements, how did packet size affect RTT and packet loss?
 4. Describe the registration failure you introduced and explain how you diagnosed and recovered from it.
 5. Identify two limitations of this simulated environment and explain how they might affect experimental results.
+
+ First, RFsimulator bypasses real wireless channel effects (path loss, multipath fading, interference) and RF hardware impairments, which leads to artificially low packet loss (0%) and stable radio conditions compared to real deployments. Second, running the entire core and RAN in software on a single host makes timing and throughput sensitive to CPU load and OS scheduling jitter rather than real-time hardware constraints, meaning observed RTT values reflect host compute performance rather than true air-interface latency.
 
 ## 10. Submission Checklist
 
