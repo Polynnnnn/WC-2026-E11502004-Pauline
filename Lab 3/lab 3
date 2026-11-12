@@ -170,8 +170,16 @@ Take a screenshot of the Ping result.
 **Questions:**
 
 1. Why must Ping use the `oaitun_ue1` interface in this experiment?
+
+Because both the UE and the Docker containers run on the same Ubuntu host. Binding `ping` with `-I oaitun_ue1` forces ICMP packets to enter the UE's 5G protocol stack and traverse the simulated RAN and UPF rather than using the host's default loopback or Docker bridge routing.
+
 2. Does successful Registration guarantee successful user-plane connectivity?
+
+No. Registration only establishes the control-plane NAS context (5GMM-REGISTERED). User-plane traffic requires an active PDU session, proper GTP-U tunneling between gNB and UPF, and correct IP routing to the external data network.
+
 3. What does a successful Ping prove, and what does it not prove about the simulated 5G system?
+
+It proves that the end-to-end 5G stack (PHY through NAS, GTP-U tunnel, UPF routing, and DN reachability) is functionally operational. However, it does not prove real-world RF link quality, wireless coverage, multi-user scheduling capacity, or over-the-air hardware latency.
 
 ## 6. Task 4 — Investigate the Effect of Packet Size
 
