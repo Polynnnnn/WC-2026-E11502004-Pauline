@@ -127,8 +127,16 @@ Take one screenshot showing the TCP connection.
 **Questions:**
 
 1. Why does RFsimulator use a TCP connection instead of a physical antenna?
+
+RFsimulator replaces physical radio transmission with a reliable local TCP socket so the gNB and nrUE can exchange baseband IQ samples in software without needing SDR hardware or RF shielding.
+
 2. Are the TCP packets exchanged by RFsimulator the same as the UE's application-layer IP packets?
+
+No. RFsimulator TCP packets carry raw digitized radio signals (complex I/Q time-domain samples) between the simulated transceivers, whereas the UE's application-layer IP packets are encapsulated inside 5G user-plane protocols (SDAP/PDCP/RLC/MAC/PHY) modulated onto those IQ samples.
+
 3. Does using RFsimulator mean that the UE and gNB are performing no physical-layer processing? Explain.
+
+No. Both `nr-softmodem` and `nr-uesoftmodem` execute the full 5G NR PHY stack, including channel coding (LDPC/Polar), scrambling, QAM modulation, resource element mapping, and OFDM modulation/demodulation. RFsimulator only replaces the DAC/ADC and wireless air interface.
 
 ## 5. Task 3 — Verify End-to-End Connectivity
 
