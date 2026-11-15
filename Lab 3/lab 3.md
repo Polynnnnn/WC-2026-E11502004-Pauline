@@ -70,6 +70,13 @@ Observe their terminal outputs and locate evidence of the following stages.
 
 Take screenshots showing the gNB and UE successfully connected.
 
+<img width="512" height="270" alt="image" src="https://github.com/user-attachments/assets/b45ca2a9-f312-4373-8cb3-48b81b46d998" />
+<img width="512" height="272" alt="image" src="https://github.com/user-attachments/assets/7433102e-e8fd-41cc-8d5d-fca3defe9b9e" />
+<img width="512" height="269" alt="image" src="https://github.com/user-attachments/assets/36af1136-0a1c-4452-8833-fcf3e2d814a7" />
+
+
+
+
 **Questions:**
 
 1. Does a successful NG Setup guarantee that a UE can register? Explain.
@@ -123,6 +130,7 @@ Complete the table:
 | Connected process(es) | `nr-softmodem` (PID `72937`), `nr-uesoftmodem` (PID `73656`) |
 
 Take one screenshot showing the TCP connection.
+<img width="512" height="255" alt="image" src="https://github.com/user-attachments/assets/487e8d57-a185-47df-81a4-d7eec4e3a120" />
 
 **Questions:**
 
@@ -166,6 +174,7 @@ Record:
 | Maximum RTT (ms) | `22.053` |
 
 Take a screenshot of the Ping result.
+<img width="512" height="255" alt="image" src="https://github.com/user-attachments/assets/b3213b56-a0b6-4bf8-b8bf-483ea03e28db" />
 
 **Questions:**
 
@@ -192,6 +201,9 @@ Perform three experiments using the same established 5G connection.
 ```bash
 ping -I oaitun_ue1 -s 56 -c 30 -i 0.2 192.168.70.135
 ```
+
+<img width="1384" height="936" alt="image" src="https://github.com/user-attachments/assets/157207d7-388e-4924-be48-39323fe3749f" />
+
 
 **Scenario B — Medium Packets**
 
@@ -220,6 +232,9 @@ Calculate the RTT difference:
 ```text
 RTT Difference = Average RTT(C) - Average RTT(A) = 23.131 - 15.303 = 7.828 ms
 ```
+
+
+
 
 **Questions:**
 
@@ -303,6 +318,11 @@ Restart the nrUE using:
 ```
 
 Confirm that the UE successfully registers again and that Ping works.
+
+<img width="512" height="245" alt="image" src="https://github.com/user-attachments/assets/ab304f4a-0ab8-43f7-b195-5f9a6cdb271e" />
+<img width="512" height="242" alt="image" src="https://github.com/user-attachments/assets/a56df764-99f1-4548-a6c3-fa69e3dd9040" />
+<img width="512" height="74" alt="image" src="https://github.com/user-attachments/assets/4d54e57b-f1d9-4eaf-84be-3977d2f91248" />
+
 
 **Questions:**
 
