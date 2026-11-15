@@ -225,10 +225,11 @@ RTT Difference = Average RTT(C) - Average RTT(A)
 
 1. Which scenario has the highest average RTT?
 
+Scenario **C** (1200 bytes) has the highest average RTT at **23.131 ms**.
 
 2. Does increasing packet size always increase RTT in your measurements?
 
-
+Yes. In my measurements, average RTT increased consistently with packet size from **15.303 ms** (56 bytes) to **19.265 ms** (512 bytes) and **23.131 ms** (1200 bytes). However, in a software simulator, OS scheduling jitter can occasionally cause minor variations between individual runs.
 
 3. Why might a larger packet require more transmission or processing resources?
 
