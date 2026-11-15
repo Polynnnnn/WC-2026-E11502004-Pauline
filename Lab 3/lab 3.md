@@ -211,11 +211,16 @@ ping -I oaitun_ue1 -s 56 -c 30 -i 0.2 192.168.70.135
 ping -I oaitun_ue1 -s 512 -c 30 -i 0.2 192.168.70.135
 ```
 
+<img width="512" height="269" alt="image" src="https://github.com/user-attachments/assets/8e1c8d82-d1cd-4676-b07d-127ecc9662bf" />
+
+
 **Scenario C — Large Packets**
 
 ```bash
 ping -I oaitun_ue1 -s 1200 -c 30 -i 0.2 192.168.70.135
 ```
+<img width="512" height="221" alt="image" src="https://github.com/user-attachments/assets/d5c1c524-3c8f-4171-8ed3-771e63c61eb5" />
+
 
 Note: `-s` specifies ICMP payload size, not the complete IP packet size.
 
