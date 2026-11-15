@@ -60,13 +60,13 @@ Observe their terminal outputs and locate evidence of the following stages.
 
 | Stage | Successful? | Evidence from logs |
 |---|---|---|
-| CN5G initialization | | |
-| gNB NG Setup | | |
-| UE synchronization | | |
-| RRC connection establishment | | |
-| UE Registration | | |
-| PDU Session Establishment | | |
-| UE tunnel creation | | |
+| CN5G initialization | Yes | All 10 CN5G containers (`mysql`, `oai-nrf`, `oai-amf`, `oai-smf`, `oai-upf`, `oai-ausf`, `oai-udm`, `oai-udr`, `oai-ext-dn`, `ims`) started and reported `Up` in `docker compose ps`. |
+| gNB NG Setup | Yes | gNB logs confirmed `in-sync` status and active NGAP control-plane connection with the AMF (`oai-amf`). |
+| UE synchronization | Yes | nrUE logs confirmed physical-layer synchronization with the gNB (`UE RNTI f6e5`, `in-sync`, `average RSRP -44`). |
+| RRC connection establishment | Yes | nrUE completed the 4-step CBRA procedure and transitioned to `State = NR_RRC_CONNECTED` with SRB1 established. |
+| UE Registration | Yes | NAS Registration succeeded for subscriber IMSI `001010000000001` (`5GMM-REGISTERED`). |
+| PDU Session Establishment | Yes | Core network established the PDU session and allocated IPv4 address `10.0.0.2/24` to the UE. |
+| UE tunnel creation | Yes | `ip -4 addr show oaitun_ue1` confirmed interface `oaitun_ue1` is `UP,LOWER_UP` with `inet 10.0.0.2/24`. |
 
 Take screenshots showing the gNB and UE successfully connected.
 
@@ -115,12 +115,12 @@ Complete the table:
 
 | Item | Observed Value |
 |---|---|
-| gNB process ID | |
-| nrUE process ID | |
-| RFsimulator transport protocol | |
-| RFsimulator port | |
-| TCP connection state | |
-| Connected process(es) | |
+| gNB process ID | `72937` |
+| nrUE process ID | `73656` |
+| RFsimulator transport protocol | TCP |
+| RFsimulator port | 4043 |
+| TCP connection state | `ESTAB` (ESTABLISHED) |
+| Connected process(es) | `nr-softmodem` (PID `72937`), `nr-uesoftmodem` (PID `73656`) |
 
 Take one screenshot showing the TCP connection.
 
@@ -156,14 +156,14 @@ Record:
 
 | Measurement | Observed Value |
 |---|---|
-| UE IP address | |
-| Destination IP | |
-| Packets transmitted | |
-| Packets received | |
-| Packet loss (%) | |
-| Minimum RTT (ms) | |
-| Average RTT (ms) | |
-| Maximum RTT (ms) | |
+| UE IP address | `10.0.0.2` |
+| Destination IP | `192.168.70.135` |
+| Packets transmitted | 10 |
+| Packets received | 10 |
+| Packet loss (%) | `0%` |
+| Minimum RTT (ms) | `14.603` |
+| Average RTT (ms) | `18.335` |
+| Maximum RTT (ms) | `22.053` |
 
 Take a screenshot of the Ping result.
 
@@ -211,9 +211,9 @@ Complete the table:
 
 | Scenario | ICMP Payload | Avg. RTT (ms) | Max. RTT (ms) | Packet Loss (%) |
 |---|---:|---:|---:|---:|
-| A | 56 bytes | | | |
-| B | 512 bytes | | | |
-| C | 1200 bytes | | | |
+| A | 56 bytes | `15.303` | `19.641` | `0%` |
+| B | 512 bytes | `19.265` | `27.503` | `0%` |
+| C | 1200 bytes | `23.131` | `31.745` | `0%` |
 
 Calculate the RTT difference:
 
@@ -284,12 +284,12 @@ Complete the table:
 
 | Item | Observation |
 |---|---|
-| Modified parameter | |
-| UE synchronized with gNB? | |
-| RRC connection established? | |
-| Registration successful? | |
-| Error or rejection evidence | |
-| Likely cause | |
+| Modified parameter | `--uicc0.imsi` changed from `001010000000001` to `001010000000099` |
+| UE synchronized with gNB? | Yes (`UE 0` synchronized, completed 4-Step CBRA random access, and obtained `RNTI 3ce3`) |
+| RRC connection established? | Yes (`[NR_RRC] State = NR_RRC_CONNECTED` and `Added srb 1 to UE 0`) |
+| Registration successful? | No |
+| Error or rejection evidence | nrUE log showed `[NAS] [UE 0] Received NAS_DOWNLINK_DATA_IND type FGS_REGISTRATION_REJECT` (`Received Registration reject`), and `ip -4 addr show oaitun_ue1` returned `Device "oaitun_ue1" does not exist.` |
+| Likely cause | IMSI `001010000000099` is not provisioned in the CN5G subscriber database (UDM/MySQL), causing AUSF/AMF authentication to fail. |
 
 If the expected registration rejection does not appear, report the actual logs instead of inventing a failure message.
 
@@ -319,7 +319,7 @@ The RFsimulator TCP connection operates below the 5G protocol stack to transport
 
 4. What evidence proves that restoring the correct configuration solved the problem?
 
-
+When running with the valid IMSI `001010000000001`, the UE completed NAS registration (`5GMM-REGISTERED`), the `oaitun_ue1` tunnel interface was created with IP `10.0.0.2/24`, and pinging `192.168.70.135` succeeded with `0%` packet loss (average RTT of `18.335 ms` over 10 packets and `15.303 ms` over 30 packets).
 
 Submit evidence from both the failed and recovered connections.
 
@@ -332,12 +332,12 @@ Complete the comparison:
 
 | Feature | OAI RFsimulator | Physical 5G System |
 |---|---|---|
-| gNB and UE protocol stack | | |
-| OFDM signal processing | | |
-| Physical antennas | | |
-| RF hardware impairments | | |
-| Wireless propagation effects | | |
-| 5G Core connectivity | | |
+| gNB and UE protocol stack | Full 5G NR stack executed in software on host CPU | Executed on dedicated baseband hardware (BBU/DU/CU) and UE modem chipsets |
+| OFDM signal processing | Performed in software (`nr-softmodem` / `nr-uesoftmodem`) | Performed in real time on FPGAs, ASICs, or DSPs |
+| Physical antennas | Replaced by a local TCP socket (port 4043) | Required for radiating and receiving electromagnetic waves |
+| RF hardware impairments | Absent by default (idealized IQ transfer) | Present (phase noise, IQ imbalance, power amplifier non-linearity) |
+| Wireless propagation effects | Absent by default (unless channel modeling is enabled) | Present (path loss, multipath fading, Doppler shift, interference) |
+| 5G Core connectivity | Real NGAP/GTP-U interfaces connected to OAI CN5G | Real NGAP/GTP-U interfaces connected to production 5GC |
 
 **Questions:**
 
@@ -370,10 +370,16 @@ First, OAI CN5G containers are launched via Docker Compose, initializing the cor
 The RFsimulator TCP connection is a simulation artifact on port 4043 that transports raw baseband IQ samples between `nr-softmodem` and `nr-uesoftmodem` in place of physical antennas. In contrast, a 5G PDU Session is a logical 3GPP user-plane service connecting the UE to an external data network via GTP-U tunnels across the gNB and UPF. The TCP socket emulates the physical radio medium, whereas the PDU Session carries the actual user IP traffic over that medium.
 
 3. Based on your measurements, how did packet size affect RTT and packet loss?
+
+In my measurements, increasing the ICMP payload from 56 bytes to 512 bytes and 1200 bytes caused the average RTT to increase steadily from **15.303 ms** to **19.265 ms** and **23.131 ms**, yielding a net difference of **7.828 ms** between Scenario C and Scenario A. Packet loss remained at **0%** across all three scenarios. This shows that larger payloads incur additional baseband processing and serialization overhead without causing packet drops in the lossless TCP-based simulator.
+
 4. Describe the registration failure you introduced and explain how you diagnosed and recovered from it.
+
+I introduced a controlled failure by changing the UE's `--uicc0.imsi` parameter from `001010000000001` to the unprovisioned value `001010000000099`. While the UE still synchronized at the physical layer and entered `NR_RRC_CONNECTED`, inspecting the nrUE logs revealed `FGS_REGISTRATION_REJECT` at the NAS layer, and `ip -4 addr show oaitun_ue1` confirmed that no tunnel interface was created (`Device "oaitun_ue1" does not exist.`). Restoring the valid IMSI (`001010000000001`) allowed the UE to register and establish its PDU session (`10.0.0.2`), which was verified by pinging `192.168.70.135` with `0%` packet loss.
+
 5. Identify two limitations of this simulated environment and explain how they might affect experimental results.
 
- First, RFsimulator bypasses real wireless channel effects (path loss, multipath fading, interference) and RF hardware impairments, which leads to artificially low packet loss (0%) and stable radio conditions compared to real deployments. Second, running the entire core and RAN in software on a single host makes timing and throughput sensitive to CPU load and OS scheduling jitter rather than real-time hardware constraints, meaning observed RTT values reflect host compute performance rather than true air-interface latency.
+First, RFsimulator bypasses real wireless channel effects (path loss, multipath fading, interference) and RF hardware impairments, which leads to artificially low packet loss (0%) and stable radio conditions compared to real deployments. Second, running the entire core and RAN in software on a single host makes timing and throughput sensitive to CPU load and OS scheduling jitter rather than real-time hardware constraints, meaning observed RTT values reflect host compute performance rather than true air-interface latency.
 
 ## 10. Submission Checklist
 
