@@ -218,7 +218,7 @@ Complete the table:
 Calculate the RTT difference:
 
 ```text
-RTT Difference = Average RTT(C) - Average RTT(A)
+RTT Difference = Average RTT(C) - Average RTT(A) = 23.131 - 15.303 = 7.828 ms
 ```
 
 **Questions:**
