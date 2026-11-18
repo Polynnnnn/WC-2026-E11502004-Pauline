@@ -286,6 +286,9 @@ Find and record these messages:
 
 **Observed classroom sequence:** The successful capture contained SCTP association, F1 Setup Request/Response, DU Configuration Update/Acknowledgement, RRC Setup messages, Authentication signaling carried through RRC, UE Context Setup/Modification, and RRC Reconfiguration. The exact packet numbers and timing are **not fixed**.
 
+<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/ca9513e4-f340-452a-a04c-5823bb18e733" />
+
+
 **Questions**
 
 1. Which node initiates F1 Setup, and which acknowledges it?
@@ -310,6 +313,9 @@ No, F1 Setup only proves that the CU and DU are connected to each other and have
 
 **Evidence:** Screenshot with F1 Setup Request/Response and screenshot with at least three UE-associated F1AP messages. Include packet numbers and source/destination addresses.
 
+<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/308c780d-28a6-41f1-a2c3-efc581afb512" />
+
+
 ---
 
 ## 7. Task 5 — Analyze F1-U (GTP-U / UDP)
@@ -319,6 +325,7 @@ In the **same PCAP**, apply:
 ```text
 gtp
 ```
+<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/a5343dff-afe8-4dd5-836c-360b16c57eca" />
 
 If necessary, first check:
 
@@ -343,6 +350,8 @@ Internet Protocol (outer CU/DU addresses)
       Tunnel Endpoint Identifier (TEID)
       Encapsulated user payload (if decodable)
 ```
+<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/7d91fdae-ed68-4f0a-9e5e-8beff4541674" />
+
 
 **Important:** The classroom trace showed repeated `GTP T-PDU` packets from `127.0.0.4` (DU) to `127.0.0.3` (CU), confirming traffic on the CU–DU user-plane path. The actual TEID was **not recorded** in the provided screenshot: read the TEID from your own packet details instead of assuming a value.
 
@@ -354,6 +363,8 @@ Both **F1-U** and **N3** can use GTP-U. Do **not** classify traffic as F1-U sole
 - **N3:** GTP-U between **gNB-CU and 5GC UPF**.
 
 Identify the interface using the actual source/destination endpoints and configuration.
+
+
 
 **Questions**
 
@@ -396,6 +407,8 @@ Complete the table:
 | End-to-end Ping works? | | |
 
 Explain in **3–5 sentences** why splitting a gNB changes the internal RAN interfaces but does not change the UE's need for synchronization, registration and a PDU session.
+
+Splitting a gNB into a CU and a DU only changes how the base station is organized internally, introducing the F1-C and F1-U interfaces between them. From the UE's perspective, the CU and DU still act together as one single 5G base station over the radio link. Therefore, the UE still has to synchronize with the radio signal (handled by the DU), register with the 5G Core network (relayed through the CU), and establish a PDU session before it can send or receive data. The internal RAN split is completely transparent to the UE and does not change the standard 5G connection steps.
 
 ---
 
