@@ -97,11 +97,25 @@ grep -nE \
 
 **Record:** The CU and DU F1 addresses, the DU SSB frequency, and PRB count. If the local settings differ from the table above, adapt the following commands and capture filters accordingly.
 
+<img width="959" height="478" alt="image" src="https://github.com/user-attachments/assets/9d7340c2-295a-49f8-a977-b99729069b25" />
+
+
 **Questions**
 
 1. Which protocol layers mainly reside in the CU, and which reside in the DU?
+
+CU = RRC, SDAP and PDCP
+DU = RLC, MAC and High-PHY
+
 2. What is the purpose of the F1 interface?
+
+The F1 interface connects the CU and the DU so they can work together as a single base station. It is split into two parts: 
+- F1-C (Control Plane): Sends control messages (F1AP over SCTP) to link the CU and DU, pass RRC signaling, and set up user contexts.
+- F1-U (User Plane): Carries the user's actual data traffic (GTP-U over UDP) between the CU and DU
+
 3. Why must the UE radio frequency be compatible with the DU rather than taken blindly from the previous lab?
+
+The DU manages the physical radio link and communicates directly with the UE. For the UE to find the cell and connect, it must listen on the exact same radio frequency that the DU is broadcasting on. Lab 3 used 3619.20 MHz (NR-ARFCN ), while the Lab 4 DU uses 3450.72 MHz (NR-ARFCN 641280630048). If you use the old frequency from Lab 3, the UE will listen to the wrong channel and fail to connect to the network.
 
 ---
 
@@ -116,6 +130,9 @@ cd ~/oai-cn5g
 docker compose up -d
 docker compose ps
 ```
+<img width="959" height="273" alt="image" src="https://github.com/user-attachments/assets/59819d17-e23f-4263-9673-69e934b3e665" />
+<img width="959" height="340" alt="image" src="https://github.com/user-attachments/assets/2d193d0f-40a2-4649-a178-057144c6cda6" />
+
 
 ### Terminal 2 — Start gNB-CU
 
@@ -125,6 +142,11 @@ cd ~/openairinterface5g-v2.4.0/cmake_targets/ran_build/build
 sudo ./nr-softmodem \
   -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb-cu.sa.f1.conf
 ```
+
+<img width="956" height="433" alt="image" src="https://github.com/user-attachments/assets/cf11d835-ed01-43db-a5ce-88dd824f273e" />
+<img width="952" height="475" alt="image" src="https://github.com/user-attachments/assets/0f7a0f02-fc28-4c89-b6b2-9a950119f8af" />
+
+
 
 ### Terminal 3 — Start gNB-DU
 
@@ -137,6 +159,8 @@ sudo ./nr-softmodem \
   -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb-du.sa.band78.106prb.rfsim.pci0.conf \
   --rfsim
 ```
+<img width="955" height="462" alt="image" src="https://github.com/user-attachments/assets/1edc8328-ade1-458a-b78c-b067600c1c98" />
+
 
 ### Terminal 4 — Start nrUE
 
@@ -153,6 +177,9 @@ sudo ./nr-uesoftmodem \
   --rfsimulator.serveraddr 127.0.0.1
 ```
 
+<img width="959" height="476" alt="image" src="https://github.com/user-attachments/assets/13c2792d-b509-4a58-829e-fefe0e4c728c" />
+
+
 > **Instructor note:** This UE command reflects the working classroom split configuration. In particular, the original Lab 3 `-C 3619200000` setting was not compatible with this DU configuration. If a provided classroom image has different NR frequencies or UICC credentials, use the instructor-validated values.
 
 ### Check the UE connection
@@ -161,6 +188,8 @@ sudo ./nr-uesoftmodem \
 ip -4 addr show oaitun_ue1
 ping -I oaitun_ue1 -c 10 192.168.70.135
 ```
+
+<img width="950" height="351" alt="image" src="https://github.com/user-attachments/assets/8bfbfca9-d7d9-49b6-ab22-c6ccefb6b48a" />
 
 **Evidence:** Screenshots of CU/DU startup, UE connection, and successful Ping. Record the observed UE IP, transmitted/received packets, packet loss, and average RTT. Do **not** invent values; they vary by machine.
 
@@ -180,10 +209,15 @@ sudo tcpdump -i lo -s 0 -nn \
   'host 127.0.0.3 and host 127.0.0.4 and (sctp or udp port 2152)'
 ```
 
+<img width="671" height="106" alt="image" src="https://github.com/user-attachments/assets/9137e43a-2358-45a4-b2cf-762e3d70a07f" />
+
+
 This captures:
 
 - **F1-C:** F1AP carried over SCTP.
 - **F1-U:** GTP-U carried over UDP port 2152, **provided the configured F1-U endpoints and port match these values**.
+
+
 
 ### Step 2. Trigger control-plane and user-plane traffic
 
@@ -194,9 +228,14 @@ This captures:
 ```bash
 ping -I oaitun_ue1 -c 30 -i 0.2 192.168.70.135
 ```
+<img width="779" height="472" alt="image" src="https://github.com/user-attachments/assets/caaf6586-c48d-4045-9991-3067817bdd0c" />
+
 
 4. Press `Ctrl+C` in the **tcpdump terminal** to finish and save the PCAP.
 5. Verify the file:
+
+<img width="770" height="308" alt="image" src="https://github.com/user-attachments/assets/4313eb1b-15e1-4562-bab4-0d11006009a4" />
+
 
 ```bash
 ls -lh ~/lab4-f1-complete.pcap
