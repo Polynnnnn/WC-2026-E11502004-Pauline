@@ -289,10 +289,24 @@ Find and record these messages:
 **Questions**
 
 1. Which node initiates F1 Setup, and which acknowledges it?
+
+The gNB-DU starts the F1 Setup by sending an F1 Setup Request message with its cell information to the gNB-CU. The gNB-CU then accepts and acknowledges the connection by sending back an F1 Setup Response message.
+
 2. Explain the difference between SCTP association establishment and F1 Setup.
+
+The SCTP association happens first at the transport layer to open a reliable connection between the DU and CU IP addresses. After that link is open, F1 Setup happens at the application layer (F1AP) to exchange 5G cell settings and activate the logical F1 interface.
+
 3. How can a NAS Registration Request be transported over F1-C?
+
+Because the DU only handles lower radio layers and cannot read NAS or RRC messages, the UE puts its NAS Registration Request inside an RRC Setup Complete message. The DU then wraps this message inside an F1AP UL RRC Message Transfer packet and sends it over F1-C to the CU, which forwards it to the 5G Core.
+
 4. What is the role of UE Context Setup?
+
+The UE Context Setup procedure allows the CU to tell the DU to prepare specific radio resources for a connecting user. This sets up the user's radio bearers and data tunnels so the DU can schedule and forward traffic for that UE.   
+
 5. Does F1 Setup alone prove successful UE Registration? Explain.
+
+No, F1 Setup only proves that the CU and DU are connected to each other and have shared their cell settings. It happens before any UE connects, so it does not prove that a user has joined the cell, authenticated with the 5G Core, or started a data session.
 
 **Evidence:** Screenshot with F1 Setup Request/Response and screenshot with at least three UE-associated F1AP messages. Include packet numbers and source/destination addresses.
 
@@ -344,10 +358,24 @@ Identify the interface using the actual source/destination endpoints and configu
 **Questions**
 
 1. Which transport protocol carries F1-U?
+
+F1-U is carried over UDP (User Datagram Protocol), specifically using UDP port to transport GTP-U user-plane packets 2152.
+
 2. What does a GTP-U **TEID** identify?
+
+The TEID (Tunnel Endpoint Identifier) identifies a specific user data tunnel and radio bearer inside the GTP-U connection. It tells the receiving node (the CU or DU) which UE and data flow the encapsulated user packet belongs to.
+
 3. Which direction is `127.0.0.4 → 127.0.0.3` in this setup?
+
+This direction is uplink (UL). Since  is the gNB-DU and  is the gNB-CU, packets going from  to  are traveling from the distributed radio unit up toward the central unit127.0.0.4127.0.0.3127.0.0.4127.0.0.3.
+
 4. How would you distinguish F1-U from N3 in a packet capture?
+
+Even though both interfaces use GTP-U over UDP port , you can tell them apart by checking the outer source and destination IP addresses2152. F1-U packets travel between the gNB-DU and gNB-CU ( and ), whereas N3 packets travel between the gNB-CU and the 5G Core UPF127.0.0.4127.0.0.3.
+
 5. Why do F1-C and F1-U use different transport protocols?
+
+They have different jobs and performance needs. F1-C carries critical control signaling (like RRC and UE setup), so it uses SCTP to guarantee reliable, ordered delivery without losing messages. F1-U carries real-time user data traffic, so it uses UDP for fast, low-latency forwarding without waiting for transport-layer retransmissions.
 
 **Evidence:** Screenshot of at least one GTP-U T-PDU, with outer IP addresses, UDP ports, message type, and TEID visible. Record the observed UL and DL packet counts (if both directions are present). Do not assume equal counts.
 
