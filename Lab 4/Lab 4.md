@@ -286,7 +286,7 @@ Find and record these messages:
 
 **Observed classroom sequence:** The successful capture contained SCTP association, F1 Setup Request/Response, DU Configuration Update/Acknowledgement, RRC Setup messages, Authentication signaling carried through RRC, UE Context Setup/Modification, and RRC Reconfiguration. The exact packet numbers and timing are **not fixed**.
 
-<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/ca9513e4-f340-452a-a04c-5823bb18e733" />
+
 
 
 **Questions**
@@ -313,6 +313,7 @@ No, F1 Setup only proves that the CU and DU are connected to each other and have
 
 **Evidence:** Screenshot with F1 Setup Request/Response and screenshot with at least three UE-associated F1AP messages. Include packet numbers and source/destination addresses.
 
+<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/ca9513e4-f340-452a-a04c-5823bb18e733" />
 <img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/308c780d-28a6-41f1-a2c3-efc581afb512" />
 
 
@@ -325,7 +326,8 @@ In the **same PCAP**, apply:
 ```text
 gtp
 ```
-<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/a5343dff-afe8-4dd5-836c-360b16c57eca" />
+
+<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/3f37be26-c7df-4a81-88cf-d68e00edf7f0" />
 
 If necessary, first check:
 
