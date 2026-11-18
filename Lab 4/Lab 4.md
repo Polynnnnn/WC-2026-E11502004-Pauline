@@ -399,13 +399,13 @@ Complete the table:
 
 | Feature | Lab 3: Monolithic gNB | Lab 4: CU/DU Split |
 |---|---|---|
-| Number of RAN processes | | |
-| Location of RRC/PDCP | | |
-| Location of RLC/MAC/PHY | | |
-| F1-C interface present? | | |
-| F1-U interface present? | | |
-| UE connected to the same 5GC? | | |
-| End-to-end Ping works? | | |
+| Number of RAN processes | 1 (single monolithic `nr-softmodem` process) | 2 (one `nr-softmodem` for gNB-CU + one `nr-softmodem` for gNB-DU) |
+| Location of RRC/PDCP | Monolithic gNB | gNB-CU (Central Unit) |
+| Location of RLC/MAC/PHY | Monolithic gNB | gNB-DU (Distributed Unit) |
+| F1-C interface present? | No | Yes (F1AP over SCTP between CU and DU) |
+| F1-U interface present? | No | Yes (GTP-U over UDP between CU and DU) |
+| UE connected to the same 5GC? | Yes (OAI CN5G) | Yes (OAI CN5G) |
+| End-to-end Ping works? | Yes | Yes |
 
 Explain in **3–5 sentences** why splitting a gNB changes the internal RAN interfaces but does not change the UE's need for synchronization, registration and a PDU session.
 
