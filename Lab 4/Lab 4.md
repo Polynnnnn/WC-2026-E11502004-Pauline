@@ -314,7 +314,6 @@ No, F1 Setup only proves that the CU and DU are connected to each other and have
 **Evidence:** Screenshot with F1 Setup Request/Response and screenshot with at least three UE-associated F1AP messages. Include packet numbers and source/destination addresses.
 
 <img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/ca9513e4-f340-452a-a04c-5823bb18e733" />
-<img width="1280" height="790" alt="image" src="https://github.com/user-attachments/assets/308c780d-28a6-41f1-a2c3-efc581afb512" />
 
 
 ---
