@@ -272,17 +272,17 @@ f1ap
 
 Find and record these messages:
 
-| Message | Typical direction | Meaning |
-|---|---|---|
-| SCTP INIT / INIT_ACK / COOKIE_ECHO / COOKIE_ACK | DU ↔ CU | Establish SCTP association |
-| F1 Setup Request | DU → CU | DU initiates F1 connection and provides served-cell information |
-| F1 Setup Response | CU → DU | CU accepts F1 Setup |
-| GNBDUConfigurationUpdate | DU → CU | DU informs CU of configuration changes |
-| Initial UL RRC Message Transfer (RRC Setup Request) | DU → CU | UE initial RRC request forwarded to CU |
-| DL RRC Message Transfer (RRC Setup) | CU → DU | CU delivers RRC Setup toward UE |
-| UL RRC Message Transfer (RRC Setup Complete) | DU → CU | UE completes RRC procedure; NAS Registration Request can be carried inside |
-| UE Context Setup Request / Response | CU ↔ DU | Establish UE-specific resources/context |
-| DL RRC Message Transfer (RRC Reconfiguration) | CU → DU | CU sends further RRC configuration |
+| Message | Typical direction | Meaning | Packet Number | Source | Destination |
+|---|---|---|---|---|---|
+| SCTP INIT / INIT_ACK / COOKIE_ECHO / COOKIE_ACK | DU ↔ CU | Establish SCTP association | 1-4 | 127.0.0.4 (opposite for ACK)| 127.0.0.3 (opposite for ACK) |
+| F1 Setup Request | DU → CU | DU initiates F1 connection and provides served-cell information | 5 |127.0.0.4 | 127.0.0.3 |
+| F1 Setup Response | CU → DU | CU accepts F1 Setup | 7 | 127.0.0.3 | 127.0.0.4 |
+| GNBDUConfigurationUpdate | DU → CU | DU informs CU of configuration changes | 9 | 127.0.0.4 | 127.0.0.3 |
+| Initial UL RRC Message Transfer (RRC Setup Request) | DU → CU | UE initial RRC request forwarded to CU | 16 | 127.0.0.4 | 127.0.0.3 | 
+| DL RRC Message Transfer (RRC Setup) | CU → DU | CU delivers RRC Setup toward UE | 17 | 127.0.0.3 | 127.0.0.4 |
+| UL RRC Message Transfer (RRC Setup Complete) | DU → CU | UE completes RRC procedure; NAS Registration Request can be carried inside | 18 | 127.0.0.4 | 127.0.0.3 |
+| UE Context Setup Request / Response | CU ↔ DU | Establish UE-specific resources/context | 31/32 | 127.0.0.3 /127.0.0.4 | 127.0.0.4 /127.0.0.3 |
+| DL RRC Message Transfer (RRC Reconfiguration) | CU → DU | CU sends further RRC configuration | 33 | 127.0.0.3 | 127.0.0.4 |
 
 **Observed classroom sequence:** The successful capture contained SCTP association, F1 Setup Request/Response, DU Configuration Update/Acknowledgement, RRC Setup messages, Authentication signaling carried through RRC, UE Context Setup/Modification, and RRC Reconfiguration. The exact packet numbers and timing are **not fixed**.
 
