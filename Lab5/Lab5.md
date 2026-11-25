@@ -76,6 +76,8 @@ grep -nE 'Starting cell search|Initial sync successful' lab5-artifacts/Lab5-ue.l
 ```
 <img width="953" height="83" alt="image" src="https://github.com/user-attachments/assets/d5083b15-17a1-4969-b6ff-b8ccb299ed8d" />
 
+The UE synchronization succeeded at line 63 with a PCI value of 0. After completing initial synchronization, the UE matches the cell's time and frequency, so it can read the MIB to get basic cell settings.
+
 Record whether UE synchronization succeeded and the PCI value. Explain: after completing initial synchronization, what is the UE able to do?
 
 #### Step 2: Find MIB and SIB1 — 8 points
@@ -93,6 +95,8 @@ Find one `MIB` packet and one `SIB1` packet. Record the frame number of each and
 <img width="959" height="503" alt="image" src="https://github.com/user-attachments/assets/60d7b4e2-d86b-45d6-ba0f-86589e0390ff" />
 
 MIB and SIB1 are repeatedly broadcast system-information messages. The UE must obtain the common configuration before it can continue the access procedure. Briefly explain the purpose of MIB and SIB1 for UE access.
+
+The SIB1 is in Frame 45 and the MIB is in Frame 46. The MIB gives basic radio settings (like frame number and subcarrier spacing) so the UE can find and read SIB1, while SIB1 gives the cell access rules and RACH settings so the UE can start Random Access.
 
 #### Step 3: Find Msg1 PRACH — 8 points
 
@@ -127,11 +131,21 @@ RAPID = 16
 
 This packet is displayed as `MAC-LTE RACH Preamble chosen`; it is the OAI tracer MAC-event format.
 
+The Msg1 log is at line 81 with frame.slot = 553.19 and preambleIndex = 16, while Wireshark shows RAPID = 16 in Frame 489. This PRACH transmission is Msg1, and the UE log shows it sends at frame.slot = 553.19 with preambleIndex = 16. The Wireshark RAPID matches the UE-log preambleIndex because both are 16, which shows the gNB heard the exact preamble that the UE sent.
+
 Submit one UE-log screenshot and one Wireshark screenshot. Briefly answer:
 
 1. Which Random Access message is this PRACH transmission?
+
+This PRACH transmission is Msg1 (the Random Access Preamble).
+
 2. At which `frame.slot` and with which `preambleIndex` does the UE log show transmission?
+
+The UE log shows transmission at frame.slot = 553.19 with preambleIndex = 16.
+
 3. Does the Wireshark `RAPID` match the UE-log `preambleIndex`? What does this show?
+
+Yes, both the Wireshark RAPID and the UE-log preambleIndex are 16, which shows that the gNB successfully detected the exact preamble sent by the UE.
 
 #### Step 4: Find Msg2 RAR in Wireshark — 11 points
 
@@ -144,6 +158,7 @@ Return to Wireshark and clear the display filter. Press `Cmd/Ctrl + F`, choose *
 RAPID = 16
 Temporary C-RNTI = 61982
 ```
+Msg2 (Random Access Response) is in Frame 490 with RAPID = 16 and Temporary C-RNTI = 61982. The gNB sends this message to reply to the UE's preamble, giving it a temporary ID (61982), timing adjustment (TA = 0), and permission to send Msg3.
 
 ### Task 2: Complete Random Access and RRC Connection Setup — 40 points
 
