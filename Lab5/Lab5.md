@@ -259,6 +259,35 @@ Submit a screenshot of this log output and briefly answer:
 
 Using the log and Wireshark evidence found in Tasks 1 and 2, draw your own Message Sequence Chart (MSC). It must include two vertical lifelines, `UE` and `gNB`, and the following six messages: MIB/SIB1, Msg1, Msg2, Msg3, Msg4, and `RRCSetupComplete`.
 
+```mermaid
+sequenceDiagram
+    participant UE
+    participant gNB
+
+    Note over UE: State: RRC_IDLE
+
+    gNB->>UE: 1. MIB / SIB1
+    Note over UE,gNB: Broadcasts cell parameters and RACH settings.
+
+    UE->>gNB: 2. Msg1: PRACH (preambleIndex = 16)
+    Note over UE,gNB: Starts Random Access using preamble index 16.
+
+    gNB->>UE: 3. Msg2: RAR (RAPID = 16, TC-RNTI = 61982)
+    Note over UE,gNB: Gives UE a temporary RNTI and uplink grant.
+
+    UE->>gNB: 4. Msg3: RRCSetupRequest (RNTI = 61982)
+    Note over UE,gNB: Asks the gNB to establish an RRC connection.
+
+    gNB->>UE: 5. Msg4: Contention Resolution + RRCSetup (ID = 1)
+    Note over UE,gNB: Resolves contention and sends SRB1 config to UE.
+
+    Note over UE: State: RRC_CONNECTED
+
+    UE->>gNB: 6. RRCSetupComplete (RNTI = 61982, ID = 1)
+    Note over UE,gNB: Confirms that the RRC setup is finished.
+```
+
+
 Determine and draw the correct order and direction of the messages yourself. Add a one-sentence purpose next to each arrow.
 
 | Item | Points |
