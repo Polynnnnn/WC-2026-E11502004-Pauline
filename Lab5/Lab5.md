@@ -88,6 +88,10 @@ nr-rrc
 
 Find one `MIB` packet and one `SIB1` packet. Record the frame number of each and provide screenshots.
 
+<img width="959" height="505" alt="image" src="https://github.com/user-attachments/assets/3e03de48-82a7-49ef-aa0c-e213c116f876" />
+
+<img width="959" height="503" alt="image" src="https://github.com/user-attachments/assets/60d7b4e2-d86b-45d6-ba0f-86589e0390ff" />
+
 MIB and SIB1 are repeatedly broadcast system-information messages. The UE must obtain the common configuration before it can continue the access procedure. Briefly explain the purpose of MIB and SIB1 for UE access.
 
 #### Step 3: Find Msg1 PRACH — 8 points
@@ -97,12 +101,14 @@ Run the following command on the UE log:
 ```bash
 grep -nE 'PRACH' lab5-artifacts/Lab5-ue.log
 ```
+<img width="959" height="119" alt="image" src="https://github.com/user-attachments/assets/9bc2063a-d70d-4ff8-bf3d-d0eba456ef11" />
+
 
 Record the Msg1 log line number. From the line that shows the actual PRACH transmission, find:
 
 ```text
-frame.slot = ______
-preambleIndex = ______
+frame.slot = 553.19
+preambleIndex = 16
 ```
 
 Next, return to Wireshark. Clear the display filter, press `Cmd/Ctrl + F`, choose **Packet details** as the search scope, and search for:
@@ -110,12 +116,14 @@ Next, return to Wireshark. Clear the display filter, press `Cmd/Ctrl + F`, choos
 ```text
 RACH Preamble chosen
 ```
+<img width="958" height="505" alt="image" src="https://github.com/user-attachments/assets/9c53d07e-93ff-412f-8223-10a41dbe470a" />
 
 After locating the PRACH event recorded by the gNB tracer, record:
 
 ```text
-RAPID = ______
+RAPID = 16
 ```
+<img width="959" height="506" alt="image" src="https://github.com/user-attachments/assets/b7125391-8aa9-4db1-aaf2-32d2a2cff084" />
 
 This packet is displayed as `MAC-LTE RACH Preamble chosen`; it is the OAI tracer MAC-event format.
 
@@ -129,9 +137,12 @@ Submit one UE-log screenshot and one Wireshark screenshot. Briefly answer:
 
 Return to Wireshark and clear the display filter. Press `Cmd/Ctrl + F`, choose **Packet details** as the search scope, and search for `RAR` or `Random Access Response`. After locating the packet, record its frame number and find the following values in `MAC-NR RAR`:
 
+<img width="959" height="500" alt="image" src="https://github.com/user-attachments/assets/3a2853f7-6f53-4250-bf9f-ff3fe5a38461" />
+
+
 ```text
-RAPID = ______
-Temporary C-RNTI = ______
+RAPID = 16
+Temporary C-RNTI = 61982
 ```
 
 ### Task 2: Complete Random Access and RRC Connection Setup — 40 points
@@ -149,9 +160,12 @@ nr-rrc.rrcSetupRequest_element
 Expand `UL-CCCH-Message → rrcSetupRequest` and find:
 
 ```text
-Frame number = ______
-Context RNTI = ______
+Frame number = 491
+Context RNTI = 61982
 ```
+
+<img width="959" height="506" alt="image" src="https://github.com/user-attachments/assets/e7e66746-4a89-435f-a762-e1ed4bbe6bbf" />
+
 
 Briefly answer:
 
@@ -169,10 +183,13 @@ nr-rrc.rrcSetup_element
 Expand `DL-CCCH-Message → rrcSetup` and find:
 
 ```text
-Frame number = ______
-Context RNTI = ______
-rrc-TransactionIdentifier = ______
+Frame number = 492
+Context RNTI = 61982
+rrc-TransactionIdentifier = 1
 ```
+
+<img width="959" height="506" alt="image" src="https://github.com/user-attachments/assets/095c30c7-07ed-4a09-a8fc-56e72b6aa523" />
+
 
 Check whether `Contention Resolution` also appears in the packet.
 
@@ -199,10 +216,13 @@ RLC-NR → PDCP-NR → NR Radio Resource Control (RRC) protocol
 Expand `message: c1` further and confirm that it contains `rrcSetupComplete`. Record:
 
 ```text
-Frame number = ______
-Context RNTI = ______
-rrc-TransactionIdentifier = ______
+Frame number = 498
+Context RNTI = 61982
+rrc-TransactionIdentifier = 1
 ```
+<img width="959" height="506" alt="image" src="https://github.com/user-attachments/assets/c69dbde5-6f30-4001-9ecc-4d6ad0b2ae0b" />
+<img width="958" height="505" alt="image" src="https://github.com/user-attachments/assets/fb4cc435-e331-4c5c-ba8f-a1b48f2bf20e" />
+
 
 Below the screenshot, briefly answer:
 
@@ -218,13 +238,16 @@ grep -nE '4-Step RA procedure succeeded|Received NR_RRCSetup|RRCSetupComplete|St
   lab5-artifacts/Lab5-ue.log
 ```
 
+<img width="956" height="158" alt="image" src="https://github.com/user-attachments/assets/daa20ff1-a836-400e-8474-9b4fd556a35d" />
+
+
 From the output, record:
 
 ```text
-4-Step RA procedure succeeded: line ______
-Received NR_RRCSetup: line ______
-State = NR_RRC_CONNECTED: line ______
-Generating RRCSetupComplete: line ______
+4-Step RA procedure succeeded: line 87
+Received NR_RRCSetup: line 88
+State = NR_RRC_CONNECTED: line 90
+Generating RRCSetupComplete: line 93
 ```
 
 Submit a screenshot of this log output and briefly answer:
