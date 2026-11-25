@@ -74,6 +74,7 @@ Run the following command on `Lab5-ue.log`:
 ```bash
 grep -nE 'Starting cell search|Initial sync successful' lab5-artifacts/Lab5-ue.log
 ```
+<img width="953" height="83" alt="image" src="https://github.com/user-attachments/assets/d5083b15-17a1-4969-b6ff-b8ccb299ed8d" />
 
 Record whether UE synchronization succeeded and the PCI value. Explain: after completing initial synchronization, what is the UE able to do?
 
